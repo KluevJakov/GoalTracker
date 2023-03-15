@@ -18,4 +18,5 @@ public class Task {
     private String name;
     private String description;
     private Date deadline;
+    private Boolean success;
 }

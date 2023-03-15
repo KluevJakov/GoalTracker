@@ -34,3 +34,5 @@ build/
 .mvn
 /mvnw
 /mvnw.cmd
+/src/main/resources/db.mv.db
+/src/main/resources/db.trace.db

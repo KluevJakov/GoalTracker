@@ -20,6 +20,8 @@ public class Goal {
     private String description;
     private Date deadline;
 
+    private Boolean success;
+
     @ManyToMany
     private List<Task> tasks;
 }

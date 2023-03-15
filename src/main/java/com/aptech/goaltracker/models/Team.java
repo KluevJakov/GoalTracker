@@ -16,7 +16,8 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //private User initiator;
+    @ManyToOne
+    private User initiator;
     private String title;
     @ManyToMany
     private List<User> members;
