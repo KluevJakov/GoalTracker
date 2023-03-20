@@ -17,6 +17,10 @@ public class GoalService {
         goalRepository.save(goal);
     }
 
+    public List<Goal> getGoalsByUserId(Long id) {
+        return goalRepository.getGoalsByUserId(id);
+    }
+
     public List<Goal> getGoals() {
         return goalRepository.findAll();
     }
