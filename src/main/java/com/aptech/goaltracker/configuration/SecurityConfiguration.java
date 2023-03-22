@@ -23,6 +23,7 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .permitAll()
                 )
+                .cors().disable().csrf().disable()
                 .logout((logout) -> logout.permitAll());
 
         return http.build();
