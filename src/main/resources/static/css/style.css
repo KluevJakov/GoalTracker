@@ -77,3 +77,21 @@ footer {
 .section {
 
 }
+
+#outerForm {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#signupForm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 50px;
+    border: 2px solid #bdbdbd;
+    border-radius: 20px;
+}
+}

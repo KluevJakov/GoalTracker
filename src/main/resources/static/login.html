@@ -22,12 +22,15 @@
     </div>
 </header>
 <main>
-    <div class="section" id="mainSection">
-        Основная секция <br>
-        <button id="btnSendPost">Отправить POST запрос</button>
-    </div>
-    <div class="section" id="secondSection">
-        Доп секция
+    <div id="outerForm">
+        <form id="signupForm">
+            <label for="login">Логин: </label>
+            <input type="text" name="login" id="login" style="margin-bottom: 10px;">
+            <label for="password">Пароль: </label>
+            <input type="password" name="password" id="password" style="margin-bottom: 10px;">
+            <input type="button" id="button" value="Войти">
+        </form>
+        <span id="errorBlock"></span>
     </div>
 </main>
 <footer>
@@ -36,6 +39,6 @@
     </p>
 </footer>
 
-<script src="js/script.js"></script>
+
 </body>
 </html>
