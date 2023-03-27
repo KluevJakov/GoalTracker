@@ -36,7 +36,7 @@ public class UserService {
         if (user.getLogin().length() < 8 || user.getLogin().length() > 20) {
             throw new IllegalArgumentException("Длина логина 8-20 символов");
         }
-        if (userRepository.findByLogin(user.getLogin()) != 0) {
+        if (userRepository.countUserByLogin(user.getLogin()) != 0) {
             throw new IllegalArgumentException("Пользователь с таким логином уже существует");
         }
         if (!user.getPassword().equals(user.getPasswordAccept())) {

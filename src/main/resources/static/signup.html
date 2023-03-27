@@ -15,9 +15,8 @@
     </div>
     <div>
         <nav id="menu">
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">О нас</a></li>
-            <li><a href="#">Контакты</a></li>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/login.html">Вход</a></li>
         </nav>
     </div>
 </header>
@@ -45,24 +44,28 @@
     let errorBlock = document.getElementById("errorBlock");
 
     button.addEventListener("click", (event) => {
-        if (login.value.trim() == "" ||
-                    login.value === undefined ||
-                    login.value.length < 8 ||
-                    login.value.length > 20
-                    ) {
-
+        if (login.value.trim() == "") {
+            errorBlock.innerHTML = "Логин не может быть пустым";
             return;
         }
-        if (password.value.trim() == "" ||
-                    password.value === undefined ||
-                    password.value.length < 8 ||
-                    password.value.length > 20) {
+        if (login.value.length < 8 || login.value.length > 20) {
+            errorBlock.innerHTML = "Длина логина 8-20 символов";
             return;
         }
-        if (passwordAccept.value.trim() == "" ||
-                    passwordAccept.value === undefined ||
-                    passwordAccept.value.length < 8 ||
-                    passwordAccept.value.length > 20) {
+        if (password.value.trim() == "") {
+            errorBlock.innerHTML = "Пароль не может быть пустым";
+            return;
+        }
+        if (password.value.length < 8 || password.value.length > 20) {
+            errorBlock.innerHTML = "Длина пароля 8-20 символов";
+            return;
+        }
+        if (passwordAccept.value.trim() == "") {
+            errorBlock.innerHTML = "Требуется подтверждение пароля";
+            return;
+        }
+        if (passwordAccept.value.length < 8 || passwordAccept.value.length > 20) {
+            errorBlock.innerHTML = "Длина пароля 8-20 символов";
             return;
         }
 
