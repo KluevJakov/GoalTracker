@@ -36,7 +36,6 @@ public class SecurityConfiguration {
         http
                 .cors().disable().csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .antMatchers("/lk").hasRole("USER")
                         .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form

@@ -1,10 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Личный кабинет</title>
+    <title>GoadTracker - ЛК</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 </head>
 <body>
+<header>
+    <div id="logotype">
+        <span id="logo1">Goal</span><span id="logo2">Tracker - ЛК</span>
+    </div>
+    <div>
+        <nav id="menu">
+            <li><a href="/">Главная</a></li>
+            <li id="login"><a href="/login.html">Вход</a></li>
+            <li id="signup"><a href="/signup.html">Регистрация</a></li>
+            <li id="quit"><a href="/logout" >Выход</a></li>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="modal fade" id="goalModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Создание цели</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Название цели" id="goalName">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Описание цели" id="goalDescr">
+                    </div>
+                    <div class="input-group mb-3 d-flex flex-column">
+                        <label for="deadlineInput">Крайний срок: </label>
+                        <input type="date" class="form-control w-100" id="deadlineInput">
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="errorBlock"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="createGoalBtn">Создать</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeGoalBtn">Закрыть</button>
+                </div>
+                <script>
+                    let createGoalBtn = document.getElementById("createGoalBtn");
+                    let errorBlock = document.getElementById("errorBlock");
+                    errorBlock.style.display = "none";
 
+                    createGoalBtn.addEventListener('click', e => {
+                        let goalName = document.getElementById("goalName");
+                        let goalDescr = document.getElementById("goalDescr");
+                        let deadlineInput = document.getElementById("deadlineInput");
+
+                        let goal = {
+                            name : goalName.value,
+                            description : goalDescr.value,
+                            deadline : deadlineInput.value
+                        };
+
+                        let xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/goal/create', false);
+                        xhr.setRequestHeader("Content-Type", "application/json");
+                        xhr.send(JSON.stringify(goal));
+
+                        if (xhr.status != 200) {
+                            errorBlock.style.display = "block";
+                            errorBlock.innerHTML = 'Ошибка: ' + xhr.response;
+                        } else {
+                            document.getElementById("closeGoalBtn").click();
+                            getGoals();
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="mainSection">
+        <div id="leftContainer">
+            <div id="goalContainer" class="innerContainer">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#goalModal">Создать цель</button>
+                <ul class="list-group" id="goals" style="margin-top: 10px;"></ul>
+            </div>
+        </div>
+        <div id="rightContainer">
+            <div id="taskContainer" class="innerContainer">
+                <button type="button" class="btn btn-primary">Создать задачу</button>
+                <table class="table table-bordered" style="margin-top: 10px;">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="teamContainer" class="innerContainer">
+                <button type="button" class="btn btn-primary">Создать команду</button>
+                <table class="table table-bordered" style="margin-top: 10px;">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="secondSection">
+        <div id="notificationContainer"></div>
+        <div id="statContainer"></div>
+    </div>
+</main>
+<footer>
+    <p>
+        (c) Разработано для АПТэК
+    </p>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 </body>
 </html>

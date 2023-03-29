@@ -24,7 +24,6 @@ public class Goal {
     private String name;
     private String description;
     private Date deadline;
-
     private Boolean success;
 
     @ManyToMany

@@ -1,4 +1,5 @@
 sendPost();
+getGoals();
 function sendPost() {
     let quit = document.getElementById("quit");
     let login = document.getElementById("login");
@@ -13,15 +14,32 @@ function sendPost() {
     } else {
         if (xhr.responseText === "true") {
             quit.style.display = "block";
-            lk.style.display = "block";
+            if (lk != null) {
+                lk.style.display = "block";
+            }
             login.style.display = "none";
             signup.style.display = "none";
         } else {
             quit.style.display = "none";
-            lk.style.display = "none";
+            if (lk != null) {
+                lk.style.display = "none";
+            }
             login.style.display = "block";
             signup.style.display = "block";
         }
+    }
+}
+
+function getGoals() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/goal/getMyGoals', false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send();
+    if (xhr.status != 200) {
+        alert("Ошибка " + xhr.status);
+    } else {
+        let goals = document.getElementById("goals");
+        goals.innerHTML += "<li class='list-group-item'>"+xhr.responseText+"</li>";
     }
 }
 
