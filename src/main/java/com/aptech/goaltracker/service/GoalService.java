@@ -22,18 +22,27 @@ public class GoalService {
     @Transactional
     public void createGoal(Goal goal, User user) {
         goal.setSuccess(false);
-        Goal createdGoal = goalRepository.save(goal);
 
-        if (user.getGoals() == null) {
-            user.setGoals(new ArrayList<>());
+        if (goal.getId().equals(-1L)) {
+            Goal createdGoal = goalRepository.save(goal);
+
+            if (user.getGoals() == null) {
+                user.setGoals(new ArrayList<>());
+            }
+
+            user.getGoals().add(createdGoal);
+            userRepository.save(user);
+        } else {
+            goalRepository.save(goal);
         }
-
-        user.getGoals().add(createdGoal);
-        userRepository.save(user);
     }
 
     public List<Goal> getGoalsByUserId(Long id) {
         return goalRepository.getGoalsByUserId(id);
+    }
+
+    public Goal getGoalById(Long id) {
+        return goalRepository.findById(id).get();
     }
 
     public List<Goal> getGoals() {

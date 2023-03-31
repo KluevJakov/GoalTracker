@@ -29,6 +29,11 @@ public class GoalController {
         return goalService.getGoalsByUserId(id);
     }
 
+    @GetMapping(value = "/getGoalById")
+    public Goal getGoalById(@RequestParam(value = "id") Long id) {
+        return goalService.getGoalById(id);
+    }
+
     @GetMapping(value = "/getMyGoals")
     public List<Goal> getMyGoals() {
         User currentUser = (User) userService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());

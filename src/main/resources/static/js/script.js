@@ -1,5 +1,4 @@
 sendPost();
-getGoals();
 function sendPost() {
     let quit = document.getElementById("quit");
     let login = document.getElementById("login");
@@ -29,17 +28,3 @@ function sendPost() {
         }
     }
 }
-
-function getGoals() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/goal/getMyGoals', false);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send();
-    if (xhr.status != 200) {
-        alert("Ошибка " + xhr.status);
-    } else {
-        let goals = document.getElementById("goals");
-        goals.innerHTML += "<li class='list-group-item'>"+xhr.responseText+"</li>";
-    }
-}
-

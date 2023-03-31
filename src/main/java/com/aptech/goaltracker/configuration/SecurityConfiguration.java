@@ -41,6 +41,8 @@ public class SecurityConfiguration {
                 .formLogin((form) -> form
                         .usernameParameter("login")
                         .passwordParameter("password")
+                        .failureForwardUrl("/error.html")
+                        .defaultSuccessUrl("/lk.html", true)
                         .permitAll()
                 )
                 .logout()

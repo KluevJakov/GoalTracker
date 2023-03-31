@@ -134,3 +134,20 @@ footer {
 #statContainer {
 
 }
+
+.successColor {
+    background-color: #c1fdb9 !important;
+}
+
+.failureColor {
+    background-color: #b9cdfd !important;
+}
+
+.liPos {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.selectedRow {
+    border: 5px solid black !important;
+}
