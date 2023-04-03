@@ -52,17 +52,100 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="goalModalEdit" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Редактирование цели</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Название цели" id="goalName1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Описание цели" id="goalDescr1">
+                    </div>
+                    <div class="input-group mb-3 d-flex flex-column">
+                        <label for="deadlineInput">Крайний срок: </label>
+                        <input type="date" class="form-control w-100" id="deadlineInput1">
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="errorBlock1"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="editGoalBtn">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeGoalBtn1">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="taskModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Создание задачи</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Название задачи" id="taskName">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Описание задачи" id="taskDescr">
+                    </div>
+                    <div class="input-group mb-3 d-flex flex-column">
+                        <label for="deadlineInput">Крайний срок: </label>
+                        <input type="date" class="form-control w-100" id="deadlineInputTask">
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="errorBlockTask"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="createTaskBtn">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeTaskBtn">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="taskModalEdit" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Редактирование задачи</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Название цели" id="taskName1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Описание цели" id="taskDescr1">
+                    </div>
+                    <div class="input-group mb-3 d-flex flex-column">
+                        <label for="deadlineInput">Крайний срок: </label>
+                        <input type="date" class="form-control w-100" id="deadlineInputTask1">
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="errorBlockTask1"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="editTaskBtn">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeTaskBtn1">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="section" id="mainSection">
         <div id="leftContainer">
             <div id="goalContainer" class="innerContainer">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#goalModal" id="btnCreateGoalModal">Создать цель</button>
-                <button type='button' class='btn btn-primary' id="btnEditGoal" disabled>Редактировать цель</button>
+                <button data-bs-toggle="modal" data-bs-target="#goalModalEdit" type='button' class='btn btn-primary' id="btnEditGoalModal" disabled>Редактировать цель</button>
                 <ul class="list-group" id="goals" style="margin-top: 10px;"></ul>
             </div>
         </div>
         <div id="rightContainer">
             <div id="taskContainer" class="innerContainer">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal" id="btnCreateTask">Создать задачу</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal" id="btnCreateTaskModal" disabled>Создать задачу</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModalEdit" id="btnEditTaskModal" disabled>Редактировать задачу</button>
                 <ul class="list-group" id="tasks" style="margin-top: 10px;"></ul>
             </div>
             <div id="teamContainer" class="innerContainer">
@@ -82,104 +165,8 @@
     </p>
 </footer>
 
-<script>
-    let indexTeam = -1;
-    let indexGoal = -1;
-
-    getGoals();
-
-    let createGoalBtn = document.getElementById("createGoalBtn");
-    let errorBlock = document.getElementById("errorBlock");
-    errorBlock.style.display = "none";
-
-    document.getElementById('btnCreateGoalModal').addEventListener('click', e => {
-        document.getElementById("goalName").value = "";
-        document.getElementById("goalDescr").value = "";
-        document.getElementById("deadlineInput").value = "";
-        indexGoal = -1;
-    });
-
-    createGoalBtn.addEventListener('click', e => {
-        let goalName = document.getElementById("goalName");
-        let goalDescr = document.getElementById("goalDescr");
-        let deadlineInput = document.getElementById("deadlineInput");
-
-        let goal = {
-            id : indexGoal,
-            name : goalName.value,
-            description : goalDescr.value,
-            deadline : deadlineInput.value
-        };
-
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', '/goal/create', false);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify(goal));
-
-        if (xhr.status != 200) {
-            errorBlock.style.display = "block";
-            errorBlock.innerHTML = 'Ошибка: ' + xhr.response;
-        } else {
-            document.getElementById("closeGoalBtn").click();
-            getGoals();
-        }
-    });
-
-    function getGoals() {
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', '/goal/getMyGoals', false);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send();
-        if (xhr.status != 200) {
-            alert("Ошибка " + xhr.status);
-        } else {
-            let goals = document.getElementById("goals");
-            let response = JSON.parse(xhr.responseText);
-            goals.innerHTML = "";
-
-            for (let i = 0; i < response.length; i++) {
-                goals.innerHTML += "<li value='"+response[i].id+"' class='list-group-item liPos liGoal " + (response[i].success ? "successColor" : "failureColor") + "'>"+
-                response[i].name+"</li>";
-            }
-
-            Array.from(document.getElementsByClassName('liGoal')).forEach(el => {
-                el.addEventListener('click', e => {
-                        indexGoal = e.target.value;
-                        clearSelection("goal");
-                        document.getElementById('btnEditGoal').disabled = false;
-                        e.target.classList.add("selectedRow");
-                        // дёрнуть getTasks
-                });
-            });
-
-            document.getElementById('btnEditGoal').addEventListener('click', e => {
-                document.getElementById('btnCreateGoalModal').click(); //TODO
-
-                xhr.open('GET', '/goal/getGoalById?id='+indexGoal, false);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.send();
-                if (xhr.status != 200) {
-                    alert("Ошибка " + xhr.status);
-                } else {
-                    let responseGoal = JSON.parse(xhr.responseText);
-                    document.getElementById("goalName").value = responseGoal.name;
-                    document.getElementById("goalDescr").value = responseGoal.description;
-                    document.getElementById("deadlineInput").value = responseGoal.deadline.substring(0, 10);
-                }
-            });
-        }
-        indexGoal = -1;
-        document.getElementById('btnEditGoal').disabled = true;
-    }
-
-    function clearSelection(cat) {
-        if (cat == "goal") {
-            Array.from(document.getElementsByClassName('liGoal')).forEach(el => {
-                el.classList.remove("selectedRow");
-            });
-        }
-    }
-</script>
+<script src="js/goal.js"></script>
+<script src="js/task.js"></script>
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 </body>

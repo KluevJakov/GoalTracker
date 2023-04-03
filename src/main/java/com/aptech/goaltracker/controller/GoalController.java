@@ -50,4 +50,14 @@ public class GoalController {
         }
         return ResponseEntity.ok("");
     }
+
+    @PutMapping(value = "/update")
+    public ResponseEntity<String> update(@RequestBody Goal goal) {
+        try {
+            goalService.updateGoal(goal);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok("");
+    }
 }
