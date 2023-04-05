@@ -31,13 +31,19 @@ public class GoalService {
     }
 
     public void updateGoal(Goal goal) {
-        goal.setSuccess(false);
+        Goal goalFromDb = goalRepository.findById(goal.getId()).get();
+        goal.setTasks(goalFromDb.getTasks());
+        goal.setSuccess(goalFromDb.getSuccess());
         goalRepository.save(goal);
     }
 
     public List<Goal> getGoalsByUserId(Long id) {
         return goalRepository.getGoalsByUserId(id);
     }
+    public List<Goal> getGoalsByTeamId(Long id) {
+        return goalRepository.getGoalsByTeamId(id);
+    }
+
 
     public Goal getGoalById(Long id) {
         return goalRepository.findById(id).get();

@@ -11,4 +11,7 @@ import java.util.List;
 public interface GoalRepository extends JpaRepository<Goal, Long> {
     @Query(value = "SELECT * FROM GOAL G INNER JOIN TUSER_GOALS TG ON G.ID = TG.GOALS_ID INNER JOIN TUSER T ON T.ID = TG.USER_ID WHERE T.ID = ?1", nativeQuery = true)
     List<Goal> getGoalsByUserId(Long id);
+
+    @Query(value = "SELECT * FROM GOAL G INNER JOIN TEAM_GOALS TG ON G.ID = TG.GOALS_ID INNER JOIN TEAM T ON T.ID = TG.TEAM_ID WHERE T.ID = ?1", nativeQuery = true)
+    List<Goal> getGoalsByTeamId(Long id);
 }

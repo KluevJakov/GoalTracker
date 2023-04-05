@@ -33,7 +33,6 @@ public class TaskService {
     }
 
     public void updateTask(Task task) {
-        task.setSuccess(false);
         taskRepository.save(task);
     }
 
@@ -42,7 +41,7 @@ public class TaskService {
         return goal.getTasks();
     }
 
-    public Task geTaskById(Long id) {
+    public Task getTaskById(Long id) {
         return taskRepository.findById(id).get();
     }
 }

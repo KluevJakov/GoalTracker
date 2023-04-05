@@ -97,6 +97,10 @@
                         <label for="deadlineInput">Крайний срок: </label>
                         <input type="date" class="form-control w-100" id="deadlineInputTask">
                     </div>
+                    <div class="input-group mb-3 d-flex flex-column">
+                        <label for="taskExec">Исполнитель задачи: </label>
+                        <select class="form-select" id="taskExec"></select>
+                    </div>
                     <div class="alert alert-danger" role="alert" id="errorBlockTask"></div>
                 </div>
                 <div class="modal-footer">
@@ -133,6 +137,58 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="teamModalCreate" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Создание команды</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Название команды" id="teamName">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Поиск по логину" id="memberSearchCreate" style="width: 50%;">
+                        <div class="input-group mb-3">
+                            <ul class="list-group" style="width: 50%; height: 300px;" id="createSearchUl"></ul>
+                            <ul class="list-group" style="width: 50%; height: 300px;" id="createChooseUl"></ul>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="errorBlockTeamCreate"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="createTeamBtn">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeTeamBtnCreate">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="teamModalEdit" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Редактирование команды</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Название команды" id="teamNameEdit">
+                    </div>
+                    <input type="text" class="form-control" placeholder="Поиск по логину" id="memberSearchEdit" style="width: 50%;">
+                    <div class="input-group mb-3">
+                        <ul class="list-group" style="width: 50%;"></ul>
+                        <ul class="list-group"  style="width: 50%;"></ul>
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="errorBlockTeamEdit"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="editTeamBtn">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeTeamBtnEdit">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="section" id="mainSection">
         <div id="leftContainer">
@@ -149,7 +205,8 @@
                 <ul class="list-group" id="tasks" style="margin-top: 10px;"></ul>
             </div>
             <div id="teamContainer" class="innerContainer">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamModal" id="btnCreateTeam">Создать команду</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamModalCreate" id="btnCreateTeamModal">Создать команду</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamModalEdit" id="btnEditTeamModal">Редактировать команду</button>
                 <ul class="list-group" id="teams" style="margin-top: 10px;"></ul>
             </div>
         </div>
@@ -165,6 +222,7 @@
     </p>
 </footer>
 
+<script src="js/team.js"></script>
 <script src="js/goal.js"></script>
 <script src="js/task.js"></script>
 <script src="js/script.js"></script>

@@ -9,6 +9,8 @@ document.getElementById('btnCreateTaskModal').addEventListener('click', e => {
     document.getElementById("taskName").value = "";
     document.getElementById("taskDescr").value = "";
     document.getElementById("deadlineInputTask").value = "";
+
+    //TODO: добавить логику указания исполнителя задачи из участников команды инициатором!
 });
 
 createTaskBtn.addEventListener('click', e => {

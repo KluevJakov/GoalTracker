@@ -2,6 +2,7 @@ package com.aptech.goaltracker.service;
 
 import com.aptech.goaltracker.models.Role;
 import com.aptech.goaltracker.models.User;
+import com.aptech.goaltracker.models.dto.UserDto;
 import com.aptech.goaltracker.repository.RoleRepository;
 import com.aptech.goaltracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -48,5 +51,17 @@ public class UserService {
         user.setRole(Collections.singleton(role));
 
         userRepository.save(user);
+    }
+
+    public List<UserDto> searchUsersByLogin(String login, Long myId) {
+        List<UserDto> resultList = new ArrayList<>();
+
+        userRepository.searchUsersByLogin(login).stream().limit(5).forEach(e -> {
+            if (!e.getId().equals(myId)) {
+                resultList.add(new UserDto(e.getId(), e.getLogin()));
+            }
+        });
+
+        return resultList;
     }
 }

@@ -1,10 +1,10 @@
 package com.aptech.goaltracker.controller;
 
 import com.aptech.goaltracker.models.Goal;
+import com.aptech.goaltracker.models.Team;
 import com.aptech.goaltracker.models.User;
 import com.aptech.goaltracker.service.CustomUserDetailsService;
-import com.aptech.goaltracker.service.GoalService;
-import com.aptech.goaltracker.service.UserService;
+import com.aptech.goaltracker.service.TeamService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,40 +15,29 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/goal")
-public class GoalController {
-
+@RequestMapping("/team")
+public class TeamController {
     @Autowired
-    private GoalService goalService;
+    private TeamService teamService;
     @Autowired
     private CustomUserDetailsService userService;
 
-    @GetMapping(value = "/getGoalsByUserId")
-    public List<Goal> getGoalsByUserId(@RequestParam(value = "id") Long id) {
-        return goalService.getGoalsByUserId(id);
+    @GetMapping(value = "/getTeamById")
+    public Team getTeamById(@RequestParam(value = "id") Long id) {
+        return teamService.getTeamById(id);
     }
 
-    @GetMapping(value = "/getGoalsByTeamId")
-    public List<Goal> getGoalsByTeamId(@RequestParam(value = "id") Long id) {
-        return goalService.getGoalsByTeamId(id);
-    }
-
-    @GetMapping(value = "/getGoalById")
-    public Goal getGoalById(@RequestParam(value = "id") Long id) {
-        return goalService.getGoalById(id);
-    }
-
-    @GetMapping(value = "/getMyGoals")
-    public List<Goal> getMyGoals() {
+    @GetMapping(value = "/getTeamByInitiatorId")
+    public List<Team> getTeamByInitiatorId() {
         User currentUser = (User) userService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-        return goalService.getGoalsByUserId(currentUser.getId());
+        return teamService.getTeamByInitiatorId(currentUser.getId());
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<String> create(@RequestBody Goal goal) {
+    public ResponseEntity<String> create(@RequestBody Team team) {
         try {
             User currentUser = (User) userService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-            goalService.createGoal(goal, currentUser);
+            teamService.createTeam(team, currentUser);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -56,9 +45,9 @@ public class GoalController {
     }
 
     @PutMapping(value = "/update")
-    public ResponseEntity<String> update(@RequestBody Goal goal) {
+    public ResponseEntity<String> update(@RequestBody Team team) {
         try {
-            goalService.updateGoal(goal);
+            teamService.updateTeam(team);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

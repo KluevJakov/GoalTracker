@@ -1,14 +1,10 @@
 package com.aptech.goaltracker.controller;
 
-import com.aptech.goaltracker.models.Goal;
 import com.aptech.goaltracker.models.Task;
-import com.aptech.goaltracker.models.User;
-import com.aptech.goaltracker.repository.GoalRepository;
 import com.aptech.goaltracker.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +23,7 @@ public class TaskController {
 
     @GetMapping(value = "/getTaskById")
     public Task getTaskById(@RequestParam(value = "id") Long id) {
-        return taskService.geTaskById(id);
+        return taskService.getTaskById(id);
     }
 
     @PostMapping(value = "/create")
