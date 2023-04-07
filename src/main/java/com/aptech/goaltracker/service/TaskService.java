@@ -36,6 +36,12 @@ public class TaskService {
         taskRepository.save(task);
     }
 
+    @Transactional
+    public void deleteTask(Long taskId) {
+        taskRepository.deleteLinks(taskId);
+        taskRepository.deleteById(taskId);
+    }
+
     public List<Task> getTasksByGoalId(Long id) {
         Goal goal = goalRepository.findById(id).get();
         return goal.getTasks();

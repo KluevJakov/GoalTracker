@@ -79,3 +79,19 @@ editTaskBtn.addEventListener('click', e => {
         getTasks(indexGoal);
     }
 });
+
+document.getElementById('btnRemoveTask').addEventListener('click', e => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('DELETE', '/task/delete?id='+indexTask, false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send();
+    if (xhr.status != 200) {
+        console.log("Ошибка " + xhr.status);
+    } else {
+        indexTask = -1;
+        clearSelection("task");
+        getTasks(indexGoal);
+        document.getElementById('btnRemoveTask').disabled = true;
+        document.getElementById('btnEditTaskModal').disabled = true;
+    }
+});

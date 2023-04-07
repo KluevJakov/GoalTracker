@@ -4,6 +4,7 @@ import com.aptech.goaltracker.models.Goal;
 import com.aptech.goaltracker.models.Team;
 import com.aptech.goaltracker.models.User;
 import com.aptech.goaltracker.repository.GoalRepository;
+import com.aptech.goaltracker.repository.TaskRepository;
 import com.aptech.goaltracker.repository.TeamRepository;
 import com.aptech.goaltracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class TeamService {
     private UserRepository userRepository;
     @Autowired
     private TeamRepository teamRepository;
+    @Autowired
+    private TaskRepository taskRepository;
 
 
     @Transactional
@@ -31,13 +34,24 @@ public class TeamService {
     }
 
     public void updateTeam(Team team) {
-        /*
-        Goal goalFromDb = teamRepository.findById(team.getId()).get();
-        team.setTasks(goalFromDb.getTasks());
-        team.setSuccess(goalFromDb.getSuccess());
+        Team teamFromDb = teamRepository.findById(team.getId()).get();
+        team.setGoals(teamFromDb.getGoals());
+        team.setInitiator(teamFromDb.getInitiator());
         teamRepository.save(team);
+    }
 
-         */
+    @Transactional
+    public void deleteTeam(Long teamId) {
+        Team team = teamRepository.findById(teamId).get();
+
+        team.getGoals().stream().forEach(e -> {
+            e.getTasks().stream().forEach(j -> {
+                taskRepository.deleteById(j.getId());
+            });
+            goalRepository.deleteById(e.getId());
+        });
+
+        teamRepository.deleteById(teamId);
     }
 
     public Team getTeamById(Long id) {

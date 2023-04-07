@@ -177,8 +177,8 @@
                     </div>
                     <input type="text" class="form-control" placeholder="Поиск по логину" id="memberSearchEdit" style="width: 50%;">
                     <div class="input-group mb-3">
-                        <ul class="list-group" style="width: 50%;"></ul>
-                        <ul class="list-group"  style="width: 50%;"></ul>
+                        <ul class="list-group" style="width: 50%; height: 300px;" id="editSearchUl"></ul>
+                        <ul class="list-group" style="width: 50%; height: 300px;" id="editChooseUl"></ul>
                     </div>
                     <div class="alert alert-danger" role="alert" id="errorBlockTeamEdit"></div>
                 </div>
@@ -193,8 +193,9 @@
     <div class="section" id="mainSection">
         <div id="leftContainer">
             <div id="goalContainer" class="innerContainer">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#goalModal" id="btnCreateGoalModal">Создать цель</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#goalModal" id="btnCreateGoalModal" disabled>Создать цель</button>
                 <button data-bs-toggle="modal" data-bs-target="#goalModalEdit" type='button' class='btn btn-primary' id="btnEditGoalModal" disabled>Редактировать цель</button>
+                <button type="button" class="btn btn-danger" id="btnRemoveGoal" disabled>Удалить цель</button>
                 <ul class="list-group" id="goals" style="margin-top: 10px;"></ul>
             </div>
         </div>
@@ -202,11 +203,13 @@
             <div id="taskContainer" class="innerContainer">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal" id="btnCreateTaskModal" disabled>Создать задачу</button>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModalEdit" id="btnEditTaskModal" disabled>Редактировать задачу</button>
+                <button type="button" class="btn btn-danger" id="btnRemoveTask" disabled>Удалить задачу</button>
                 <ul class="list-group" id="tasks" style="margin-top: 10px;"></ul>
             </div>
             <div id="teamContainer" class="innerContainer">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamModalCreate" id="btnCreateTeamModal">Создать команду</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamModalEdit" id="btnEditTeamModal">Редактировать команду</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamModalEdit" id="btnEditTeamModal" disabled>Редактировать команду</button>
+                <button type="button" class="btn btn-danger" id="btnRemoveTeam" disabled>Удалить команду</button>
                 <ul class="list-group" id="teams" style="margin-top: 10px;"></ul>
             </div>
         </div>

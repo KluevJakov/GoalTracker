@@ -1,8 +1,3 @@
-let indexGoal = -1;
-let indexTask = -1;
-
-getGoals();
-
 let createGoalBtn = document.getElementById("createGoalBtn");
 let editGoalBtn = document.getElementById("editGoalBtn");
 let errorBlock = document.getElementById("errorBlock");
@@ -53,7 +48,7 @@ editGoalBtn.addEventListener('click', e => {
         errorBlock.innerHTML = 'Ошибка: ' + xhr.response;
     } else {
         document.getElementById("closeGoalBtn1").click();
-        getGoals();
+        getGoals(indexTeam);
     }
 });
 
@@ -70,7 +65,12 @@ createGoalBtn.addEventListener('click', e => {
     };
 
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/goal/create', false);
+    if (indexTeam == -1) {
+        xhr.open('POST', '/goal/create', false);
+    } else {
+        goal.id = indexTeam;
+        xhr.open('POST', '/goal/createForTeam', false);
+    }
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(goal));
 
@@ -79,13 +79,17 @@ createGoalBtn.addEventListener('click', e => {
         errorBlock.innerHTML = 'Ошибка: ' + xhr.response;
     } else {
         document.getElementById("closeGoalBtn").click();
-        getGoals();
+        getGoals(indexTeam);
     }
 });
 
-function getGoals() {
+function getGoals(teamId) {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/goal/getMyGoals', false);
+    if (teamId == -1) {
+        xhr.open('GET', '/goal/getMyGoals', false);
+    } else {
+        xhr.open('GET', '/goal/getGoalsByTeamId?id='+teamId, false);
+    }
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send();
     if (xhr.status != 200) {
@@ -106,6 +110,8 @@ function getGoals() {
                     indexGoal = e.target.value;
                     document.getElementById('btnEditGoalModal').disabled = false;
                     document.getElementById("btnCreateTaskModal").disabled = false;
+                    document.getElementById("btnRemoveGoal").disabled = false;
+                    document.getElementById('btnRemoveTask').disabled = true;
                     e.target.classList.add("selectedRow");
                     getTasks(indexGoal);
             });
@@ -113,6 +119,26 @@ function getGoals() {
     }
     document.getElementById('btnEditGoalModal').disabled = true;
 }
+
+document.getElementById('btnRemoveGoal').addEventListener('click', e => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('DELETE', '/goal/delete?id='+indexGoal, false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send();
+    if (xhr.status != 200) {
+        console.log("Ошибка " + xhr.status);
+    } else {
+        indexGoal = -1;
+        clearSelection("goal");
+        getGoals(indexTeam);
+        document.getElementById('btnRemoveTask').disabled = true;
+        document.getElementById('btnRemoveGoal').disabled = true;
+        document.getElementById('btnEditTaskModal').disabled = true;
+        document.getElementById('btnCreateTaskModal').disabled = true;
+        document.getElementById('btnEditGoalModal').disabled = true;
+        tasks.innerHTML = "";
+    }
+});
 
 function getTasks(goalId) {
     let xhr = new XMLHttpRequest();
@@ -136,6 +162,7 @@ function getTasks(goalId) {
                     clearSelection("task");
                     indexTask = e.target.value;
                     document.getElementById('btnEditTaskModal').disabled = false;
+                    document.getElementById("btnRemoveTask").disabled = false;
                     e.target.classList.add("selectedRow");
             });
         });
@@ -150,6 +177,21 @@ function clearSelection(cat) {
         document.getElementById('btnEditTaskModal').disabled = true;
     } else if (cat == "task") {
         Array.from(document.getElementsByClassName('liTask')).forEach(el => {
+            el.classList.remove("selectedRow");
+        });
+    } else if (cat == "team") {
+        Array.from(document.getElementsByClassName('liTeam')).forEach(el => {
+            el.classList.remove("selectedRow");
+        });
+    } else {
+        Array.from(document.getElementsByClassName('liGoal')).forEach(el => {
+            el.classList.remove("selectedRow");
+        });
+        document.getElementById('btnEditTaskModal').disabled = true;
+        Array.from(document.getElementsByClassName('liTask')).forEach(el => {
+            el.classList.remove("selectedRow");
+        });
+        Array.from(document.getElementsByClassName('liTeam')).forEach(el => {
             el.classList.remove("selectedRow");
         });
     }

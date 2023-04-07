@@ -55,10 +55,30 @@ public class GoalController {
         return ResponseEntity.ok("");
     }
 
+    @PostMapping(value = "/createForTeam")
+    public ResponseEntity<String> createForTeam(@RequestBody Goal goal) {
+        try {
+            goalService.createForTeam(goal);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok("");
+    }
+
     @PutMapping(value = "/update")
     public ResponseEntity<String> update(@RequestBody Goal goal) {
         try {
             goalService.updateGoal(goal);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok("");
+    }
+
+    @DeleteMapping(value = "/delete")
+    public ResponseEntity<String> delete(@RequestParam(value = "id") Long id) {
+        try {
+            goalService.deleteGoal(id);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

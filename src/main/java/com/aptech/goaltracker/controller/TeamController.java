@@ -53,4 +53,14 @@ public class TeamController {
         }
         return ResponseEntity.ok("");
     }
+
+    @DeleteMapping(value = "/delete")
+    public ResponseEntity<String> delete(@RequestParam(value = "id") Long id) {
+        try {
+            teamService.deleteTeam(id);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok("");
+    }
 }
