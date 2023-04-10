@@ -16,4 +16,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM TEAM WHERE INITIATOR_ID = ?1")
     List<Team> getTeamByInitiatorId(Long id);
 
+    @Query(value = "SELECT * FROM TUSER U INNER JOIN TEAM_MEMBERS M ON U.ID = M.MEMBERS_ID INNER JOIN TEAM T ON T.ID = M.TEAM_ID  WHERE T.ID = ?1", nativeQuery = true)
+    List<User> getTeamMembers(Long teamId);
 }

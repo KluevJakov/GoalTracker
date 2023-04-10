@@ -17,7 +17,7 @@
     <div>
         <nav id="menu">
             <li><a href="/">Главная</a></li>
-            <li><a href="/login.html">Вход</a></li>
+            <li><a href="/login">Вход</a></li>
         </nav>
     </div>
 </header>
@@ -88,7 +88,7 @@
         if (xhr.status != 200) {
             errorBlock.innerHTML = 'Ошибка: ' + xhr.response;
         } else {
-            location.href = "/login.html";
+            location.href = "/login";
         }
     });
 

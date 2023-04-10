@@ -18,8 +18,8 @@
     <div>
         <nav id="menu">
             <li><a href="/">Главная</a></li>
-            <li id="login"><a href="/login.html">Вход</a></li>
-            <li id="signup"><a href="/signup.html">Регистрация</a></li>
+            <li id="login"><a href="/login">Вход</a></li>
+            <li id="signup"><a href="/signup">Регистрация</a></li>
             <li id="quit"><a href="/logout" >Выход</a></li>
         </nav>
     </div>
@@ -204,6 +204,7 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal" id="btnCreateTaskModal" disabled>Создать задачу</button>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModalEdit" id="btnEditTaskModal" disabled>Редактировать задачу</button>
                 <button type="button" class="btn btn-danger" id="btnRemoveTask" disabled>Удалить задачу</button>
+                <button type="button" class="btn btn-success" id="btnTaskComplete" disabled>Задача выполнена</button>
                 <ul class="list-group" id="tasks" style="margin-top: 10px;"></ul>
             </div>
             <div id="teamContainer" class="innerContainer">

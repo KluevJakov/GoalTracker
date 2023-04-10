@@ -21,6 +21,11 @@ public class TaskController {
         return taskService.getTasksByGoalId(id);
     }
 
+    @GetMapping(value = "/complete")
+    public void complete(@RequestParam(value = "id") Long id) {
+        taskService.complete(id);
+    }
+
     @GetMapping(value = "/getTaskById")
     public Task getTaskById(@RequestParam(value = "id") Long id) {
         return taskService.getTaskById(id);

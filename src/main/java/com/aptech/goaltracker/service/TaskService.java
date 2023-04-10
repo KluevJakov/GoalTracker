@@ -36,6 +36,21 @@ public class TaskService {
         taskRepository.save(task);
     }
 
+    public void complete(Long taskId) {
+        Task task = taskRepository.findById(taskId).get();
+        task.setSuccess(true);
+        taskRepository.save(task);
+
+        List<Goal> goalList = goalRepository.findAll();
+
+        Goal goal = goalList.stream().filter(e -> e.getTasks().stream().anyMatch(j -> j.getId().equals(taskId))).findFirst().get();
+
+        if (goal.getTasks().stream().allMatch(Task::getSuccess)) {
+            goal.setSuccess(true);
+            goalRepository.save(goal);
+        }
+    }
+
     @Transactional
     public void deleteTask(Long taskId) {
         taskRepository.deleteLinks(taskId);

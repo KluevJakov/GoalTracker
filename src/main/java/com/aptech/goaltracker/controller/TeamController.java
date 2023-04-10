@@ -3,6 +3,7 @@ package com.aptech.goaltracker.controller;
 import com.aptech.goaltracker.models.Goal;
 import com.aptech.goaltracker.models.Team;
 import com.aptech.goaltracker.models.User;
+import com.aptech.goaltracker.models.dto.UserDto;
 import com.aptech.goaltracker.service.CustomUserDetailsService;
 import com.aptech.goaltracker.service.TeamService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,16 @@ public class TeamController {
     @GetMapping(value = "/getTeamByInitiatorId")
     public List<Team> getTeamByInitiatorId() {
         User currentUser = (User) userService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        if (currentUser == null) {
+            return null;
+        }
         return teamService.getTeamByInitiatorId(currentUser.getId());
+    }
+
+    @GetMapping(value = "/getTeamMembers")
+    public List<UserDto> getTeamMembers(@RequestParam(value = "id") Long id) {
+        //return teamService.getTeamMembers(id);
+        return null;
     }
 
     @PostMapping(value = "/create")

@@ -3,6 +3,7 @@ package com.aptech.goaltracker.service;
 import com.aptech.goaltracker.models.Goal;
 import com.aptech.goaltracker.models.Team;
 import com.aptech.goaltracker.models.User;
+import com.aptech.goaltracker.models.dto.UserDto;
 import com.aptech.goaltracker.repository.GoalRepository;
 import com.aptech.goaltracker.repository.TaskRepository;
 import com.aptech.goaltracker.repository.TeamRepository;
@@ -61,5 +62,12 @@ public class TeamService {
         return teamRepository.getTeamByInitiatorId(id);
     }
 
+    public List<UserDto> getTeamMembers(Long id) {
+        List<UserDto> result = new ArrayList<>();
+        teamRepository.getTeamMembers(id).forEach(e -> {
+            result.add(new UserDto(e.getId(), e.getLogin()));
+        });
+        return result;
+    }
 
 }

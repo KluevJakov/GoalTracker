@@ -163,6 +163,7 @@ function getTasks(goalId) {
                     indexTask = e.target.value;
                     document.getElementById('btnEditTaskModal').disabled = false;
                     document.getElementById("btnRemoveTask").disabled = false;
+                    document.getElementById("btnTaskComplete").disabled = false;
                     e.target.classList.add("selectedRow");
             });
         });

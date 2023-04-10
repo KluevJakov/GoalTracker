@@ -36,13 +36,18 @@ public class SecurityConfiguration {
         http
                 .cors().disable().csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
+                        .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/icon/**").permitAll()
+                        .antMatchers("/","/login", "/signup").permitAll()
+                        .antMatchers("/lk").hasAuthority("USER")
                         .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form
                         .usernameParameter("login")
                         .passwordParameter("password")
-                        .failureForwardUrl("/error.html")
-                        .defaultSuccessUrl("/lk.html", true)
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .failureForwardUrl("/error")
+                        .defaultSuccessUrl("/lk", true)
                         .permitAll()
                 )
                 .logout()
